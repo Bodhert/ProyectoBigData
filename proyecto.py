@@ -1,17 +1,24 @@
 import sys , operator
 import csv
 import string
-from pyspark.sql import SparkSession
+import nltk
+
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.feature import IndexToString, StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
+nltk.download('stopwords')
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+from pyspark.sql import SparkSession
+from nltk.corpus import stopwords
 
 if __name__ == "__main__":
 
   # create Spark context with Spark configuration
   spark = SparkSession.builder.appName("SimpleApp").getOrCreate()
   sc = spark.sparkContext
+  stop_words = set(stopwords.words('english'))
   # create a spark session , y le pido que me devuelva el context
 
   # read in text file and split each document into words
@@ -34,17 +41,27 @@ if __name__ == "__main__":
   # cleaning the data
   review = list(map(lambda x: x.lower(), review))  # coverting all the text to lower
   review = [''.join(c for c in s if c not in string.punctuation) for s in review] # removing all the punctuation
-  review = list(map(lambda x: x.translate(str.maketrans('','', string.digits)), review)) # removing 
+  review = list(map(lambda x: x.translate(str.maketrans('','', string.digits)), review)) # removing  Deleting Numbers
 
+  print(review)
+
+  #filtered_sentence = [w for w in review if not w in stop_words]
+  filtered_sentence = []
+  final = ""
+  for sentence in review:
+    word_tokens = word_tokenize(sentence)
+    for w in word_tokens:
+      if w not in stop_words:
+        final = final + " " + w
+    filtered_sentence.append(final)
+    final = ""
+ 
+  print("\n \n -----------------------------------------------------------------------------------------------------: \n " +  str(filtered_sentence))
+  
+  
   # review = list(map(lambda x: x.strip(), review) #
   # review = list (lambda x: x.translate(None, string.digits))
-  print(review)  # just to test what does the array have
-
-
-
-
-
-
+  #print(review)  # just to test what does the array have
 
 
  # spark-submit --master yarn --deploy-mode cluster *.py
