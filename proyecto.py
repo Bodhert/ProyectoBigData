@@ -1,17 +1,19 @@
 import sys , operator
-import csv
 import string
 import nltk
+import csv
+import re
 
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.feature import IndexToString, StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.ml.feature import HashingTF, IDF, Tokenizer
+from pyspark.sql import SparkSession
 
 nltk.download('stopwords')
 nltk.download('punkt')
 from nltk.tokenize import word_tokenize
-from pyspark.sql import SparkSession
+from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 
 if __name__ == "__main__":
@@ -49,10 +51,12 @@ if __name__ == "__main__":
   # removing stops words from the strings
   filtered_sentence = []
   final = ""
+  ps = PorterStemmer() #the most commonly used stemmer
   for sentence in review:
     word_tokens = word_tokenize(sentence)
     for w in word_tokens:
       if w not in stop_words:
+        w = ps.stem(w)
         final = final + " " + w
     filtered_sentence.append(final)
     final = ""
