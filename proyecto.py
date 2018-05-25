@@ -16,6 +16,9 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 
+from pyspark.sql.functions import udf
+from pyspark.sql.types import IntegerType
+
 if __name__ == "__main__":
 
   # create Spark context with Spark configuration
@@ -64,6 +67,7 @@ if __name__ == "__main__":
   review = filtered_sentence
   # print("\n \n -----------------------------------------------------------------------------------------------------: \n " +  str(review))
 
+  # doing the bag of words algorithm
   dup_vector = zip(calification,review)
   sentenceData = spark.createDataFrame(dup_vector, ["label","sentence"])
   tokenizer = Tokenizer(inputCol="sentence", outputCol="words")
@@ -74,7 +78,7 @@ if __name__ == "__main__":
   idf = IDF(inputCol="rawFeatures", outputCol="features")
   idfModel = idf.fit(featurizedData)
   rescaledData = idfModel.transform(featurizedData)
-  rescaledData.select("label", "features").show(20,False)
+  # rescaledData.select("label", "features").show(20,False) # to show dataframe structure
 
   # print(len(review)) # printing the size of both arrays for indexing acknolegement
   # print(len(calification))
@@ -82,6 +86,18 @@ if __name__ == "__main__":
 
   #print(review)  # just to test what does the array have
 
+
+  # sample2 = rescaledData.rdd.map(lambda x: (x.label, x.feature))
+  labels = rescaledData.select("label").toPandas().values
+  vector = rescaledData.select("features").toPandas().values
+  # labels.show()
+  # vector.show(20,False)
+  print(labels)
+  print (vector)
+
+  sc.stop()
+  
+  
 
  # spark-submit --master yarn --deploy-mode cluster *.py
  # si tengo alguna depencia, y cuando ejecute spark , pyenv,
