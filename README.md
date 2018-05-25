@@ -16,7 +16,7 @@
 
   ``` spark-submit --master local[1] proyecto.py ```
 
-   El dataset es Learning.csv
+   El dataset es Learning1.csv
 
    ## Dependencias
 
