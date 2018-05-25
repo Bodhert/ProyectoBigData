@@ -36,8 +36,12 @@
 ## Referencias
 
 
-http://python-apuntes.blogspot.com.co
+http://python-apuntes.blogspot.com.
+
 https://spark.apache.org/docs/2.2.0/mllib-feature-extraction.html
+
 https://machinelearningmastery.com/clean-text-machine-learning-python/
+
 http://web.cs.ucla.edu/~mtgarip/linear.html
+
 http://spark.apache.org/docs/latest/mllib-linear-methods.html#linear-support-vector-machines-svms
