@@ -1,7 +1,7 @@
-# Proyecto BigData Topicos en Ingenieria de Telematica <h1>
-   # Universidad de EAFIT <h1>
+# Proyecto BigData Topicos en Ingenieria de Telematica 
+   ## Universidad de EAFIT 
   
-  ## Estudiantes <h3>
-  ### Alejandro Cordoba Bodhert heading
-  ### Juan Pablo Alcaraz Florez heading
-  ### Craig David Cartagena <h6>
+  ## Estudiantes 
+  ### Alejandro Cordoba Bodhert 
+  ### Juan Pablo Alcaraz Florez 
+  ### Craig David Cartagena 
