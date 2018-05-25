@@ -19,6 +19,20 @@
    El Dataset se llama Learning1.csv
 
    ## Dependencias
+   
+   - Se coloca el texto en minusculo
+   - se elimina caracteres que no son letras: numeros, signos de puntuaciones ..
+   - Se elimina doble espacio entre las palabras
+   - se realiza steamming. La idea es acortar la busqueda y normalizar oraciones.
+   
+   EJEMPLO:
+   
+   I was taking a ride in the car.
+   I was riding in the car.
+   
+   Esta oracion signifnica lo mismo, el ing significa un tiempo pasado en ingles, se analiza la diferencia entre ride y riding y vemos que tienen el mismo significado. para eso se omite el ing y se iguala a ride.
+   
+      
 
    * TF-IDF (Term Frequency – Inverse Document Frequency): Es un método de vectorización
   de características ampliamente utilizado en la minería de textos para reflejar la
