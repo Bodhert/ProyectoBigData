@@ -27,8 +27,8 @@
    
    EJEMPLO:
    
-   I was taking a ride in the car.
-   I was riding in the car.
+   * I was taking a ride in the car.
+   * I was riding in the car.
    
    Esta oracion signifnica lo mismo, el ing significa un tiempo pasado en ingles, se analiza la diferencia entre ride y riding y vemos que tienen el mismo significado. para eso se omite el ing y se iguala a ride.
    
