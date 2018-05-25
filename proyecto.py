@@ -9,6 +9,10 @@ from pyspark.ml.feature import IndexToString, StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.ml.feature import HashingTF, IDF, Tokenizer
 from pyspark.sql import SparkSession
+from pyspark.mllib.tree import RandomForest, RandomForestModel
+from pyspark.mllib.util import MLUtils
+from pyspark.mllib.linalg import SparseVector
+from pyspark.mllib.regression import LabeledPoint
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -88,12 +92,23 @@ if __name__ == "__main__":
 
 
   # sample2 = rescaledData.rdd.map(lambda x: (x.label, x.feature))
-  labels = rescaledData.select("label").toPandas().values
-  vector = rescaledData.select("features").toPandas().values
+
+  labels = rescaledData.select("label")
+  vector = rescaledData.select("features")
+
+  clean = LabeledPoint(labels, vector)
+
   # labels.show()
   # vector.show(20,False)
-  print(labels)
-  print (vector)
+  # print(labels)
+  # print (vector)
+
+  (trainingData, testData) = rescaledData.randomSplit([0.7, 0.3])
+
+  # model = RandomForest.trainClassifier(trainingData.select("label", "features"), numClasses=2, categoricalFeaturesInfo={},
+  #                                    numTrees=3, featureSubsetStrategy="auto",
+  #                                    impurity='gini', maxDepth=4, maxBins=32)
+
 
   sc.stop()
   
