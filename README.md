@@ -2,7 +2,7 @@
   # Topicos en ingenieria de telematica <h2>
   # Universidad de EAFIT <h2>
   
-  #Estudiantes<h2>
-  # Alejandro Cordoba Bodhert<2>
-  # Juan Pablo Alcaraz Florez<2>
-  # Craig David Cartagena <h2>
+  #Estudiantes<h3>
+  # Alejandro Cordoba Bodhert<h6>
+  # Juan Pablo Alcaraz Florez<h6>
+  # Craig David Cartagena <h6>
