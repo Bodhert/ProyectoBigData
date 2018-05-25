@@ -8,7 +8,7 @@
 
 
   ## Descripción del proyecto
-  El proyecto consiste en analizar un Dataset de diferentes comentarios de usuarios respecto a la experiencia en una aerolinea. con esta información se debe hacer un análisis de su experiencia e identificar que comentarios son positivos, negativos o neutros.
+  El proyecto consiste en analizar un Dataset de diferentes comentarios de usuarios respecto a la experiencia en una aerolinea. Con esta información se debe hacer un análisis de su experiencia e identificar que comentarios son positivos, negativos o neutros.
 
   ## Ejecución del Script en Python
 
@@ -19,20 +19,31 @@
    El Dataset se llama Learning1.csv
 
    ## Dependencias
+
+   Se requiere la instalación por medio del manejador de paquetes de Python, pip; diferentes bibliotecas requeridas para el correcto funcionamiento de la Script.
    
-   - Se coloca el texto en minusculo
-   - se elimina caracteres que no son letras: numeros, signos de puntuaciones ..
-   - Se elimina doble espacio entre las palabras
-   - se realiza steamming. La idea es acortar la busqueda y normalizar oraciones.
+   - $ pip3 install string
+   - $ pip3 install nltk
+   - $ pip3 install csv
+   - $ pip3 install re
+   - $ pip3 install pyspark
+
+   ## Funcionamiento
+
+   ### Creación del Corpus
+
+   Se realiza la correspondiente limpieza de los datos suminstrados
    
-   EJEMPLO:
-   
-   * I was taking a ride in the car.
-   * I was riding in the car.
-   
-   Esta oracion signifnica lo mismo, el ing significa un tiempo pasado en ingles, se analiza la diferencia entre ride y riding y vemos que tienen el mismo significado. para eso se omite el ing y se iguala a ride.
-   
-      
+   - colocar cada una de la setancias en minuscula
+   - Eliminar caracteres que no son letras como números, signos de puntuaciones, etc...
+   - Realizar Steamming, en donde se busca acortar la busqueda, normalizar oraciones y mejorar los resultados del modelo a entrenar.
+   - Eliminar doble espacio entre las palabras.
+
+   Para la correcta eliminación de los Stop-Words y hacer Steamming se requiere hacer la correspondiente tokenización de los datos de entrada.
+
+   ### Vectorización del Dataset
+
+   La transformación del texto en vectores de numeros identificables se realiza una relación entre TF (Time Frecuency) y IDF(Inverse Document Frequency)   
 
    * TF-IDF (Term Frequency – Inverse Document Frequency): Es un método de vectorización
   de características ampliamente utilizado en la minería de textos para reflejar la
@@ -46,6 +57,12 @@
 
  Después de calcular ésto se procede a calcular el TF-IDF de la siguiente manera:
  ![Tech](/tf.png)
+
+   ### Modelo
+
+   Se utilizó el algoritmo de Random Forest suministrado por la biblioteca MLlib, siendo éste una combinación de árboles predictores, tal que cada árbol depende de los valores de un vector aleatorio probado independientemente y con la misma distribución para cada uno de estos.
+
+   ![Tech](/randomForest.jpg)  
 
 ## Referencias
 
