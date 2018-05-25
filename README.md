@@ -1,5 +1,5 @@
-# Proyecto BigData Topicos en ingenieria de telematica <h1>
-  # Universidad de EAFIT <h2>
+# Proyecto BigData Topicos en ingenieria de telematica 
+   Universidad de EAFIT <h1>
   
   ## Estudiantes <h3>
   ### Alejandro Cordoba Bodhert heading
