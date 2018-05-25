@@ -6,6 +6,7 @@ import nltk
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.feature import IndexToString, StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark.ml.feature import HashingTF, IDF, Tokenizer
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -43,9 +44,9 @@ if __name__ == "__main__":
   review = [''.join(c for c in s if c not in string.punctuation) for s in review] # removing all the punctuation
   review = list(map(lambda x: x.translate(str.maketrans('','', string.digits)), review)) # removing  Deleting Numbers
 
-  print(review)
+  # print(review)
 
-  #filtered_sentence = [w for w in review if not w in stop_words]
+  # removing stops words from the strings
   filtered_sentence = []
   final = ""
   for sentence in review:
@@ -55,12 +56,26 @@ if __name__ == "__main__":
         final = final + " " + w
     filtered_sentence.append(final)
     final = ""
- 
-  print("\n \n -----------------------------------------------------------------------------------------------------: \n " +  str(filtered_sentence))
+
+  review = filtered_sentence
+  # print("\n \n -----------------------------------------------------------------------------------------------------: \n " +  str(review))
+
+  dup_vector = zip(calification,review)
+  sentenceData = spark.createDataFrame(dup_vector, ["label","sentence"])
+  tokenizer = Tokenizer(inputCol="sentence", outputCol="words")
+  wordsData = tokenizer.transform(sentenceData)
+  hashingTF = HashingTF(inputCol="words", outputCol="rawFeatures", numFeatures=100) # numFeatures is the distincts diferents  words that there are in the document, would be a good thing to do a wordcount here 
+  featurizedData = hashingTF.transform(wordsData)
+  # alternatively, CountVectorizer can also be used to get term frequency vectors
+  idf = IDF(inputCol="rawFeatures", outputCol="features")
+  idfModel = idf.fit(featurizedData)
+  rescaledData = idfModel.transform(featurizedData)
+  rescaledData.select("label", "features").show(20,False)
+
+  # print(len(review)) # printing the size of both arrays for indexing acknolegement
+  # print(len(calification))
   
-  
-  # review = list(map(lambda x: x.strip(), review) #
-  # review = list (lambda x: x.translate(None, string.digits))
+
   #print(review)  # just to test what does the array have
 
 
