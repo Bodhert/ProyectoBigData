@@ -1,5 +1,4 @@
-# Proyecto BigData <h1>
-  # Topicos en ingenieria de telematica <h2>
+# Proyecto BigData Topicos en ingenieria de telematica <h1>
   # Universidad de EAFIT <h2>
   
   ## Estudiantes <h3>
